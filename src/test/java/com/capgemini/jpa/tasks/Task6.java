@@ -46,7 +46,7 @@ class Task6 {
                         eventRepository.findById(13L).orElse(null)
                 )
         );
-        assertThat("comments should be added", commentRepository.findAll().size(), is(3));
+        assertThat(commentRepository.findAll().size(), is(3));
 
         followerRepository.saveAndFlush(new Follower(1L, "Follower1", LocalDateTime.now(), commentRepository.getById(2L)));
         followerRepository.saveAndFlush(new Follower(2L, "Follower2", LocalDateTime.now(), commentRepository.getById(3L)));
