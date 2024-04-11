@@ -32,28 +32,28 @@ class Task6 {
     @Test
     void shouldGetFollowerUsingNamedGraph() {
         commentRepository.saveAndFlush(
-                new Comment(1L, "some comment",
+                new Comment(1L, "test comment 1",
                         eventRepository.findById(11L).orElse(null)
                 )
         );
         commentRepository.saveAndFlush(
-                new Comment(2L, "some comment",
+                new Comment(2L, "test comment 2",
                         eventRepository.findById(12L).orElse(null)
                 )
         );
         commentRepository.saveAndFlush(
-                new Comment(3L, "some comment",
+                new Comment(3L, "test comment 3",
                         eventRepository.findById(13L).orElse(null)
                 )
         );
         assertThat("comments should be added", commentRepository.findAll().size(), is(3));
 
-        followerRepository.saveAndFlush(new Follower(1L, "user_1", LocalDateTime.now(), commentRepository.getById(2L)));
-        followerRepository.saveAndFlush(new Follower(2L, "user_2", LocalDateTime.now(), commentRepository.getById(3L)));
-        followerRepository.saveAndFlush(new Follower(3L, "user_3", LocalDateTime.now(), commentRepository.getById(1L)));
+        followerRepository.saveAndFlush(new Follower(1L, "Follower1", LocalDateTime.now(), commentRepository.getById(2L)));
+        followerRepository.saveAndFlush(new Follower(2L, "Follower2", LocalDateTime.now(), commentRepository.getById(3L)));
+        followerRepository.saveAndFlush(new Follower(3L, "Follower3", LocalDateTime.now(), commentRepository.getById(1L)));
         assertThat("Followers should be added", followerRepository.findAll().size(), is(3));
 
-        var followers = followerRepository.findAllByUserId("user_2");
+        var followers = followerRepository.findAllByUserId("Follower2");
         assertThat(followers.size(), is(1));
     }
 }
