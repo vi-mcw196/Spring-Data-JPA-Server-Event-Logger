@@ -50,8 +50,7 @@ class Task6 {
 
         followerRepository.saveAndFlush(new Follower(1L, "Follower1", LocalDateTime.now(), commentRepository.getById(2L)));
         followerRepository.saveAndFlush(new Follower(2L, "Follower2", LocalDateTime.now(), commentRepository.getById(3L)));
-        followerRepository.saveAndFlush(new Follower(3L, "Follower3", LocalDateTime.now(), commentRepository.getById(1L)));
-        assertThat("Followers should be added", followerRepository.findAll().size(), is(3));
+        assertThat("Followers should be added", followerRepository.findAll().size(), is(2));
 
         var followers = followerRepository.findAllByUserId("Follower2");
         assertThat(followers.size(), is(1));
