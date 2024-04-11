@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @NamedEntityGraph(
-        name = "follower-graph",
+        name = "super-graph",
         attributeNodes = {
-                @NamedAttributeNode(value = "comment", subgraph = "comment-subgraph"),
+                @NamedAttributeNode(value = "comment", subgraph = "comment-entity-subgraph"),
         },
         subgraphs = {
                 @NamedSubgraph(
-                        name = "comment-subgraph",
+                        name = "comment-entity-subgraph",
                         attributeNodes = {
                                 @NamedAttributeNode("event")
                         }
