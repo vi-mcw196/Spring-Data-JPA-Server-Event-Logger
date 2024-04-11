@@ -11,6 +11,8 @@ import org.springframework.test.context.transaction.TestTransaction;
 import java.util.Optional;
 
 import org.hibernate.LazyInitializationException;
+
+import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -82,6 +84,6 @@ class Task1 {
 
         // then
         assertEquals(Optional.empty(), serverRepository.findById(server.getId()));
-        assertThrows( LazyInitializationException.class, () -> serverRepository.getById(server.getId()).toString());
+        assertThrows( EntityNotFoundException.class, () -> serverRepository.getById(server.getId()).toString());
     }
 }
