@@ -27,9 +27,11 @@ public abstract class Event {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EVENT_ID_GENERATOR")
     private Long id;
 
+    @Getter
     @Column(nullable = false)
     private LocalDateTime time;
 
+    @Getter
     private int duration;
 
     @Column(length = 10)
@@ -38,11 +40,17 @@ public abstract class Event {
     @Column(length = 30)
     private String userId;
 
+    @Getter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SERVER_ID", nullable = false)
     private Server server;
 
+    @Getter
     @Column
     private boolean analysisRequired;
+
+    public void setServer(Server server) {
+        this.server = server;
+    }
 
 }

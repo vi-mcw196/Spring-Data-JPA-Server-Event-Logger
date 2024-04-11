@@ -1,21 +1,24 @@
 package com.capgemini.jpa.tasks;
 
 import com.capgemini.jpa.entities.Event;
+import com.capgemini.jpa.repositories.EventRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import java.time.LocalDateTime;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 
 @DataJpaTest
 class Task2 {
 
+    @Autowired
+    EventRepository eventRepository;
 
     @Test
     void shouldFindOneEntryBetweenDatesThatMustBeAnalyzed() throws Exception {
@@ -28,7 +31,7 @@ class Task2 {
         Sort sort = Sort.unsorted();
 
         // when
-        Page<Event> result = null;
+        Page<Event> result = eventRepository.findEventsByTimeBetweenAndAnalysisRequiredEquals(start, end, toBeAnalyzed, PageRequest.of(page, pageSize, sort));
 
         // then
         assertThat(result, is(notNullValue()));
@@ -46,7 +49,7 @@ class Task2 {
         Sort sort = Sort.by("time");
 
         // when
-        Page<Event> result = null;
+        Page<Event> result = eventRepository.findEventsByTimeBetweenAndAnalysisRequiredEquals(start, end, toBeAnalyzed, PageRequest.of(page, pageSize, sort));
 
         // then
         assertThat(result, is(notNullValue()));
@@ -66,10 +69,10 @@ class Task2 {
         Sort sort = Sort.by("time");
 
         // when
-        Page<Event> result = null;
+        Page<Event> result = eventRepository.findEventsByTimeBetweenAndAnalysisRequiredEquals(start, end, toBeAnalyzed, PageRequest.of(page, pageSize, sort));
 
         // then
-        assertThat(result.getTotalElements(), is(0));
+        assertThat(result.getTotalElements(), is(0L));
         assertThat(result.getContent(), hasSize(0));
     }
 }
